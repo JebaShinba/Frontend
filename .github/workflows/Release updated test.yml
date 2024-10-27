@@ -29,6 +29,10 @@ jobs:
       - name: Install Node.js dependencies
         run: npm install  # Install all project dependencies
 
+      - name: Run Mocha tests
+        run: npm test  # Assuming your test script runs Mocha
+  
+
       - name: Build frontend
         run: npm run build  # Build the frontend application
 
