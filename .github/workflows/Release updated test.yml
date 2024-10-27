@@ -29,6 +29,9 @@ jobs:
       - name: Install Node.js dependencies
         run: npm install  # Install all project dependencies
 
+      - name: Make mocha executable
+        run: chmod +x node_modules/.bin/mocha  
+
       - name: Run Mocha tests
         run: npm test  # Assuming your test script runs Mocha
   
