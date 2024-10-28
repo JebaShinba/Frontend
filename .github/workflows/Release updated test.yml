@@ -82,7 +82,9 @@ jobs:
 
       # Install Python dependencies
       - name: Install Python dependencies
-        run: pip install selenium  # Install Selenium
+        run: |
+          pip install selenium
+          pip install webdriver_manager  # Install WebDriver Manager for managing drivers
 
       - name: Run Google Search Test
         id: run_tests
