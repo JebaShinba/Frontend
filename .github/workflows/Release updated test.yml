@@ -25,22 +25,21 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'  # Specify the Node.js version
-          
+
       - name: Install Node.js dependencies
         run: npm install  # Install all project dependencies
 
       - name: Make mocha executable
-        run: chmod +x node_modules/.bin/mocha  
+        run: chmod +x node_modules/.bin/mocha
 
       - name: Run Mocha tests
         run: npm test  # Assuming your test script runs Mocha
-  
 
       - name: Build frontend
         run: npm run build  # Build the frontend application
 
       - name: Test frontend
-        run: npm test  # Run frontend tests if any  
+        run: npm test  # Run frontend tests if any
 
       - name: Check Docker version
         run: docker --version
@@ -75,27 +74,33 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'  # Specify the Python version you need
+
+      # Install Python dependencies
+      - name: Install Python dependencies
+        run: pip install selenium  # Install Selenium
 
       - name: Run Google Search Test
         id: run_tests
         run: |
-         python Google.py --maxfail=5 --disable-warnings > test_results.log || exit 0  # Run tests and avoid breaking pipeline
+          python Google.py --maxfail=5 --disable-warnings > test_results.log || exit 0  # Run tests and avoid breaking pipeline
 
       - name: Show test results
         run: |
-           echo "Selenium tests executed: Google.py"
-         
+          echo "Selenium tests executed: Google.py"
+
       - name: Confirm test execution
         if: ${{ steps.run_tests.outcome == 'success' }}
         run: echo "Selenium tests executed successfully."
 
-
       - name: Handle test failure
         if: ${{ steps.run_tests.outcome != 'success' }}
         run: |
-            echo "Selenium tests failed. Please check the logs for details."
-        
-      - name: Deploy frontend
-        run: npm run deploy  # Deploy the frontend application      
+          echo "Selenium tests failed. Please check the logs for details."
 
-      
+      - name: Deploy frontend
+        run: npm run deploy  # Deploy the frontend application
