@@ -79,7 +79,7 @@ jobs:
       - name: Run Google Search Test
         id: run_tests
         run: |
-         python test_google.py > test_results.log || exit 0
+         python Google.py > test_results.log || exit 0
          cat test_results.log
 
       - name: Show test results
