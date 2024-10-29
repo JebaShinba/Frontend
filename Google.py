@@ -1,23 +1,28 @@
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
-# Set up Chrome driver
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service)
+# Set up Chrome options if needed
+chrome_options = Options()
+
+
+# Set up the Chrome WebDriver using ChromeDriverManager
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 try:
-    # Open Google
+    # Navigate to Google
     driver.get("https://www.google.com")
 
-    # Search for a term
-    search_box = driver.find_element(By.NAME, "q")
-    search_box.send_keys("Selenium Python")
+    # Find the search box
+    search_box = driver.find_element("name", "q")  # Updated to new Selenium syntax
+    search_box.send_keys("Selenium WebDriver")
     search_box.submit()
 
-    
-    print("Google Search Test Passed.")
+    # Wait for a moment and print the page title
+    driver.implicitly_wait(5)
+    print(driver.title)
+
 finally:
-    # Close 
-    driver.quit()
+    driver.quit()  # Make sure to close the browser
+
