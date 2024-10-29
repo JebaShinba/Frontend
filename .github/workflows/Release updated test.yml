@@ -90,6 +90,11 @@ jobs:
       - name: Install Selenium
         run: pip install selenium
 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install selenium webdriver-manager
+
       - name: Run Google Search Test
         run: |
           if ! python Google.py; then
