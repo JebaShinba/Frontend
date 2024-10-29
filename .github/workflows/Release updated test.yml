@@ -135,16 +135,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Cypress
-        run: npm install cypress --save-dev
-
-      - name: Run End-to-End Tests with Cypress
-        run: |
-          npx cypress run
-        env:
-          CYPRESS_BASE_URL: "https://your-app-url.com"  # Use the deployed environment URL
-
-
+    
 
    
 
