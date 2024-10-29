@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node server.js",
     "test": "mocha test.js",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "deploy": "npm run build && echo 'Deploying the application...'" 
   },
   "devDependencies": {
     "chai": "^4.3.4",
@@ -14,5 +15,3 @@
     "webpack-cli": "^5.1.4"
   }
 }
-
-
