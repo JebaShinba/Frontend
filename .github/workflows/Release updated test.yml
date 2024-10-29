@@ -100,12 +100,15 @@ jobs:
         run: |
            python Google.py > test_results.log || exit 0
            cat test_results.log
+      
       - name: Show test results
         run: |
              echo "Selenium tests executed: Google.py"
+      
       - name: Confirm test execution
         if: ${{ steps.run_tests.outcome == 'success' }}
         run: echo "Selenium tests executed successfully."
+      
       - name: Handle test failure
         if: ${{ steps.run_tests.outcome != 'success' }}
         run: |
