@@ -116,4 +116,21 @@ jobs:
         run: npm run deploy
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Verify Deployment Status
+        run: |
+          # Check that the application is accessible and responding correctly.
+          curl --fail https://your-app-url.com || exit 1
+
+     
+
+      - name: Tag the Release
+        run: |
+          git tag -a "deploy-${{ github.run_id }}" -m "Deployed via CI/CD pipeline"
+          git push origin "deploy-${{ github.run_id }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clean Up Temporary Files
+        run: rm -f image.xz test_results.log
+
       
