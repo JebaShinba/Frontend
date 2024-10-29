@@ -102,17 +102,15 @@ jobs:
            cat test_results.log
       
       - name: Show test results
-        run: |
-             echo "Selenium tests executed: Google.py"
+        run: cat test_results.log
       
       - name: Confirm test execution
         if: ${{ steps.run_tests.outcome == 'success' }}
-        run: echo "Selenium tests executed successfully."
+        run: cat test_results.log
       
       - name: Handle test failure
         if: ${{ steps.run_tests.outcome != 'success' }}
-        run: |
-              echo "Selenium tests failed. Please check the logs for details."
+        run: cat test_results.log
 
       - name: Deploy Frontend
         if: success()
