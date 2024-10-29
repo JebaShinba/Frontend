@@ -19,5 +19,5 @@ try:
     
     print("Google Search Test Passed.")
 finally:
-    # Close the browser
+    # Close 
     driver.quit()
