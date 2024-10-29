@@ -61,27 +61,25 @@ jobs:
       - name: Save Docker Image
         run: docker save my-image:latest -o my-image.tar
 
-      - name: Create GitHub Release
-        id: create_release  # Adding an id to reference the output
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Create Release
+        id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: v1.0.0
-          release_name: "Release v1.0.0"
+          tag_name: v${{ github.run_number }}  # Use the run number as the version tag
+          release_name: Release ${{ github.run_number }}
           draft: false
           prerelease: false
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Automatically available in Actions
       - name: Upload Release Asset
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}  # Correct reference to the output
-          asset_path: ./my-image.tar
-          asset_name: my-image.tar
-          asset_content_type: application/x-tar
-      
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: image.xz  # Path to the compressed Docker image
+          asset_name: image.xz
+          asset_content_type: application/x-xz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
        
       - name: Install Selenium
