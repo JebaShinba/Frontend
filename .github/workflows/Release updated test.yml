@@ -57,13 +57,13 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          if ! docker build -t my-image:latest .; then
+          if ! docker build -t my-selenium-app:latest.; then
             echo "Docker image build failed. Exiting..."
             exit 1
           fi
 
       - name: Save Docker Image
-        run: docker save my-image:latest -o my-image.tar
+        run: docker image save my-selenium-app:latest | xz -z -e -7 -T0 > image.xz
 
       - name: Create Release
         id: create_release
