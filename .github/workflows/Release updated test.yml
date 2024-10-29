@@ -92,7 +92,7 @@ jobs:
 
       - name: Run Google Search Test
         run: |
-          if ! python google_search_test.py; then
+          if ! python Google.py; then
             echo "Google Search Test failed. Exiting..."
             exit 1
           fi
