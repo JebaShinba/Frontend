@@ -112,6 +112,8 @@ jobs:
         if: ${{ steps.run_tests.outcome != 'success' }}
         run: cat test_results.log
 
-      - name: Deploy Frontend
-        if: success()
-        run: echo "Deploying frontend..."
+      - name: Deploy application
+        run: npm run deploy
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      
